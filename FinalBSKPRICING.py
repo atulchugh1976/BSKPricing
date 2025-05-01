@@ -277,7 +277,7 @@ BeyondSkool Partnerships Team
         try:
             with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
                 smtp.starttls()
-                smtp.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASS"))
+                smtp.login(os.getenv("partnership@beyondskool.in"), os.getenv("pfua uxjc mzuj jmdz))
                 smtp.send_message(message)
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
