@@ -1,4 +1,0 @@
-# .env.template for BeyondSkool Pricing App
-
-EMAIL_USER=partnership@beyondskool.in
-EMAIL_PASS=pfua uxjc mzuj jmdz
