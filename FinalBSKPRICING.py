@@ -164,7 +164,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 40
     page.insert_text((50, y), f"This agreement is made on {today} between:", fontsize=12)
     y += 20
-    page.insert_text((50, y), "BeyondSkool EdTech Pvt Ltd (\"BeyondSkool\")", fontsize=12)
+    page.insert_text((50, y), "Ivy Minds Learning Solutions Pvt Ltd  (\"BeyondSkool\")", fontsize=12)
     y += 20
     page.insert_text((50, y), f"and {school_name} (\"School\").", fontsize=12)
     y += 40
@@ -176,7 +176,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         y += 20
     page.insert_text((50, y), f"Total Students: {total_students}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Price: Rs.{round(total_final_price):,}", fontsize=11)
+    page.insert_text((50, y), f"Total Price: Rs {round(total_final_price):,}", fontsize=11)
     y += 40
 
     clauses = [
@@ -271,7 +271,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 20
     page.insert_text((50, y), f"Total GST on Services: ₹{total_gst:,}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Payable (Books + Services + GST): ₹{round(total_payable):,}", fontsize=11)
+    page.insert_text((50, y), f"Total Payable (Books + Services + GST): Rs {round(total_payable):,}", fontsize=11)
 
     doc.save(spa_output_path)
     doc.close()
@@ -307,4 +307,3 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
-
