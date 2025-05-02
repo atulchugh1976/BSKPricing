@@ -191,8 +191,9 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         "9. Jurisdiction: All disputes will be subject to the exclusive jurisdiction of Mumbai courts."
     ]
     for clause in clauses:
-        page.insert_text((50, y), clause, fontsize=11)
-        y += 20
+        rect = fitz.Rect(50, y, 550, y + 40)
+        page.insert_textbox(rect, clause, fontsize=11, align=0)
+        y += 30
 
     y += 30
     page.insert_text((50, y), "Accepted and Agreed:", fontsize=14)
@@ -306,3 +307,4 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
+
