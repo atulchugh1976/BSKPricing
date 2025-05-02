@@ -5,6 +5,8 @@ import fitz
 from PIL import Image
 import smtplib
 import os
+from dotenv import load_dotenv
+load_dotenv()
 from email.message import EmailMessage
 from datetime import datetime
 
@@ -162,7 +164,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 40
     page.insert_text((50, y), f"This agreement is made on {today} between:", fontsize=12)
     y += 20
-    page.insert_text((50, y), "Ivy Minds Learning Solutions Pvt Ltd (\"BeyondSkool\")", fontsize=12)
+    page.insert_text((50, y), "BeyondSkool EdTech Pvt Ltd (\"BeyondSkool\")", fontsize=12)
     y += 20
     page.insert_text((50, y), f"and {school_name} (\"School\").", fontsize=12)
     y += 40
