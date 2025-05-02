@@ -265,11 +265,11 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     total_payable = total_book_cost + total_service_fee + total_gst
 
     y += 30
-    page.insert_text((50, y), f"Total Book Cost: ₹{total_book_cost:,}", fontsize=11)
+    page.insert_text((50, y), f"Total Book Cost: Rs {total_book_cost:,}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Service Fee: ₹{total_service_fee:,}", fontsize=11)
+    page.insert_text((50, y), f"Total Service Fee: Rs {total_service_fee:,}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total GST on Services: ₹{total_gst:,}", fontsize=11)
+    page.insert_text((50, y), f"Total GST on Services: Rs {total_gst:,}", fontsize=11)
     y += 20
     page.insert_text((50, y), f"Total Payable (Books + Services + GST): Rs {round(total_payable):,}", fontsize=11)
 
@@ -307,3 +307,4 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
+
