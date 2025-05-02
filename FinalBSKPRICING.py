@@ -280,9 +280,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
 
     st.download_button("📄 Download SPA", data=pdf_data, file_name=spa_output_path)
 
-    st.write("EMAIL_USER:", os.getenv("EMAIL_USER"))
-    st.write("EMAIL_PASS:", os.getenv("EMAIL_PASS"))
-
+    
     if st.button("✉️ Email SPA"):
         message = EmailMessage()
         message['Subject'] = f"BeyondSkool - School Partnership Agreement - {school_name}"
