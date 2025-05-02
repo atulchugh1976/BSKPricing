@@ -198,7 +198,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     page.insert_text((50, y), "For Ivy Minds Learning Solutions Pvt LTD ", fontsize=12)
     page.insert_text((300, y), f"For {school_name}", fontsize=12)
 
-  # ---------- COMMERCIAL TABLE ----------
+    # ---------- COMMERCIAL TABLE ----------
     spa_commercial_rows = []
     for block in program_blocks:
         prog = block["Program"]
@@ -230,25 +230,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 30
     page.insert_text((50, y), "Program             Students  Sections  Book Price  Service Fee  GST", fontsize=11)
     y += 20
-    from reportlab.platypus import Table, TableStyle
-from reportlab.lib import colors
-
-    # Build tabular commercial table for better formatting
-    data = [["Program", "Students", "Sections", "Book Price", "Service Fee", "GST"]]
-    for row in spa_commercial_rows:
-        data.append([
-            row["Program"],
-            str(row["Students"]),
-            str(row["Sections"]),
-            f"₹{row['Book Price']}",
-            f"₹{row['Service Fee']}",
-            f"₹{row['GST on Service']}"
-        ])
-
-    table_y = y + 10
-    text = "
-".join(["	".join(map(str, row)) for row in data])
-    page.insert_text((50, table_y), text, fontsize=10)
+    
         y += 20
 
     total_book_cost = sum(row['Book Price'] * row['Students'] for row in spa_commercial_rows)
