@@ -20,6 +20,19 @@ st.title("BeyondSkool Pricing Wizard")
 st.markdown("Empowering Schools with Transformative Learning Programs")
 
 # ---------- INPUT SECTION ----------
+payment_options = ["Full Payment in Advance", "Half Yearly", "Quarterly"]
+payment_term = st.selectbox("💳 Payment Terms", payment_options)
+
+payment_months = []
+if payment_term == "Half Yearly":
+    payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June", "July", "August", "September"], key="half1"))
+    payment_months.append(st.selectbox("Select 2nd Installment Month", ["October", "November", "December", "January", "February", "March"], key="half2"))
+elif payment_term == "Quarterly":
+    payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June"], key="q1"))
+    payment_months.append(st.selectbox("Select 2nd Installment Month", ["July", "August", "September"], key="q2"))
+    payment_months.append(st.selectbox("Select 3rd Installment Month", ["October", "November", "December", "January", "February", "March"], key="q3"))
+else:
+    payment_months.append(st.selectbox("Select Payment Month", ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"], key="full"))
 school_name = st.text_input("🏫 Name of the School")
 your_email = st.text_input("📧 Your Email ID (BeyondSkool Creator)")
 school_email = st.text_input("🏫 School's Email ID")
@@ -231,6 +244,10 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 40
     page.insert_text((50, y), "Commercial Terms:", fontsize=14)
     y += 30
+    page.insert_text((50, y), f"Payment Terms: {payment_term}", fontsize=11)
+    y += 20
+    page.insert_text((50, y), f"Payment Months: {', '.join(payment_months)}", fontsize=11)
+    y += 30
     # Table header
     headers = ["Program", "Students", "Sections", "Book Price", "Service Fee", "GST"]
     col_widths = [110, 80, 80, 100, 100, 80]
@@ -307,4 +324,3 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
-
