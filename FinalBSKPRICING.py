@@ -255,8 +255,8 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
             x += col_widths[i]
         y += 20
         if y > 750:
-        page = doc.new_page()
-        y = 50
+            page = doc.new_page()
+            y = 50
 
     total_book_cost = sum(row['Book Price'] * row['Students'] for row in spa_commercial_rows)
     total_service_fee = sum(row['Service Fee'] * row['Students'] for row in spa_commercial_rows)
@@ -308,4 +308,3 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
-
