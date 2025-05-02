@@ -20,19 +20,7 @@ st.title("BeyondSkool Pricing Wizard")
 st.markdown("Empowering Schools with Transformative Learning Programs")
 
 # ---------- INPUT SECTION ----------
-# Payment terms input will be moved to post-confirmation
-payment_term = st.selectbox("💳 Payment Terms", payment_options)
-
-payment_months = []
-if payment_term == "Half Yearly":
-    payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June", "July", "August", "September"], key="half1"))
-    payment_months.append(st.selectbox("Select 2nd Installment Month", ["October", "November", "December", "January", "February", "March"], key="half2"))
-elif payment_term == "Quarterly":
-    payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June"], key="q1"))
-    payment_months.append(st.selectbox("Select 2nd Installment Month", ["July", "August", "September"], key="q2"))
-    payment_months.append(st.selectbox("Select 3rd Installment Month", ["October", "November", "December", "January", "February", "March"], key="q3"))
-else:
-    payment_months.append(st.selectbox("Select Payment Month", ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"], key="full"))
+# Payment terms logic moved below post-confirmation.)
 school_name = st.text_input("🏫 Name of the School")
 your_email = st.text_input("📧 Your Email ID (BeyondSkool Creator)")
 school_email = st.text_input("🏫 School's Email ID")
