@@ -254,8 +254,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
             page.insert_text((x, y), cell, fontsize=10)
             x += col_widths[i]
         y += 20
-    
-            if y > 750:
+        if y > 750:
         page = doc.new_page()
         y = 50
 
@@ -282,7 +281,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     st.download_button("📄 Download SPA", data=pdf_data, file_name=spa_output_path)
 
     st.write("EMAIL_USER:", os.getenv("EMAIL_USER"))
-st.write("EMAIL_PASS:", os.getenv("EMAIL_PASS"))
+    st.write("EMAIL_PASS:", os.getenv("EMAIL_PASS"))
 
     if st.button("✉️ Email SPA"):
         message = EmailMessage()
@@ -309,3 +308,4 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
+
