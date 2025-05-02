@@ -20,7 +20,7 @@ st.title("BeyondSkool Pricing Wizard")
 st.markdown("Empowering Schools with Transformative Learning Programs")
 
 # ---------- INPUT SECTION ----------
-payment_options = ["Full Payment in Advance", "Half Yearly", "Quarterly"]
+# Payment terms input will be moved to post-confirmation
 payment_term = st.selectbox("💳 Payment Terms", payment_options)
 
 payment_months = []
@@ -157,7 +157,22 @@ if st.session_state.get("calculate"):
             if st.button("✅ Confirm Pricing"):
                 st.session_state["confirm"] = True
 
-# ---------- SPA GENERATION + DOWNLOAD/EMAIL ----------
+# ---------- SPA GENERATION + PAYMENT TERMS + DOWNLOAD/EMAIL ----------
+
+    # Payment terms (post-confirmation only)
+    payment_options = ["Full Payment in Advance", "Half Yearly", "Quarterly"]
+    payment_term = st.selectbox("💳 Payment Terms", payment_options)
+
+    payment_months = []
+    if payment_term == "Half Yearly":
+        payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June", "July", "August", "September"], key="half1"))
+        payment_months.append(st.selectbox("Select 2nd Installment Month", ["October", "November", "December", "January", "February", "March"], key="half2"))
+    elif payment_term == "Quarterly":
+        payment_months.append(st.selectbox("Select 1st Installment Month", ["April", "May", "June"], key="q1"))
+        payment_months.append(st.selectbox("Select 2nd Installment Month", ["July", "August", "September"], key="q2"))
+        payment_months.append(st.selectbox("Select 3rd Installment Month", ["October", "November", "December", "January", "February", "March"], key="q3"))
+    else:
+        payment_months.append(st.selectbox("Select Payment Month", ["April", "May", "June", "July", "August", "September", "October", "November", "December", "January", "February", "March"], key="full"))
 if st.session_state.get("confirm") and (gross_margin >= 30):
     spa_output_path = f"SPA_{school_name.replace(' ', '_')}.pdf"
     today = datetime.today().strftime('%d-%m-%Y')
@@ -189,7 +204,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         y += 20
     page.insert_text((50, y), f"Total Students: {total_students}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Price: Rs {round(total_final_price):,}", fontsize=11)
+    page.insert_text((50, y), f"Total Price: **Rs {round(total_final_price):,}**", fontsize=11)
     y += 40
 
     clauses = [
@@ -244,9 +259,9 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 40
     page.insert_text((50, y), "Commercial Terms:", fontsize=14)
     y += 30
-    page.insert_text((50, y), f"Payment Terms: {payment_term}", fontsize=11)
+    page.insert_text((50, y), f"Payment Terms: **{payment_term}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Payment Months: {', '.join(payment_months)}", fontsize=11)
+    page.insert_text((50, y), f"Payment Months: **{', '.join(payment_months)}**", fontsize=11)
     y += 30
     # Table header
     headers = ["Program", "Students", "Sections", "Book Price", "Service Fee", "GST"]
@@ -282,13 +297,13 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     total_payable = total_book_cost + total_service_fee + total_gst
 
     y += 30
-    page.insert_text((50, y), f"Total Book Cost: Rs {total_book_cost:,}", fontsize=11)
+    page.insert_text((50, y), f"Total Book Cost: **Rs {total_book_cost:,}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Service Fee: Rs {total_service_fee:,}", fontsize=11)
+    page.insert_text((50, y), f"Total Service Fee: **Rs {total_service_fee:,}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total GST on Services: Rs {total_gst:,}", fontsize=11)
+    page.insert_text((50, y), f"Total GST on Services: **Rs {total_gst:,}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Payable (Books + Services + GST): Rs {round(total_payable):,}", fontsize=11)
+    page.insert_text((50, y), f"Total Payable (Books + Services + GST): **Rs {round(total_payable):,}**", fontsize=11)
 
     doc.save(spa_output_path)
     doc.close()
