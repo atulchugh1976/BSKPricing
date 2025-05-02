@@ -230,10 +230,34 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 40
     page.insert_text((50, y), "Commercial Terms:", fontsize=14)
     y += 30
-    page.insert_text((50, y), "Program             Students  Sections  Book Price  Service Fee  GST", fontsize=11)
+    # Table header
+    headers = ["Program", "Students", "Sections", "Book Price", "Service Fee", "GST"]
+    col_widths = [110, 80, 80, 100, 100, 80]
+    x_start = 50
+    x = x_start
+    for i, header in enumerate(headers):
+        page.insert_text((x, y), header, fontsize=10)
+        x += col_widths[i]
     y += 20
-    
+    # Table rows
+    for row in spa_commercial_rows:
+        x = x_start
+        row_data = [
+            row["Program"],
+            str(row["Students"]),
+            str(row["Sections"]),
+            f"₹{row['Book Price']}",
+            f"₹{row['Service Fee']}",
+            f"₹{row['GST on Service']}"
+        ]
+        for i, cell in enumerate(row_data):
+            page.insert_text((x, y), cell, fontsize=10)
+            x += col_widths[i]
         y += 20
+    
+            if y > 750:
+        page = doc.new_page()
+        y = 50
 
     total_book_cost = sum(row['Book Price'] * row['Students'] for row in spa_commercial_rows)
     total_service_fee = sum(row['Service Fee'] * row['Students'] for row in spa_commercial_rows)
@@ -256,6 +280,9 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         pdf_data = file.read()
 
     st.download_button("📄 Download SPA", data=pdf_data, file_name=spa_output_path)
+
+    st.write("EMAIL_USER:", os.getenv("EMAIL_USER"))
+st.write("EMAIL_PASS:", os.getenv("EMAIL_PASS"))
 
     if st.button("✉️ Email SPA"):
         message = EmailMessage()
