@@ -193,6 +193,10 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     page.insert_text((50, y), f"Total Students: {total_students}", fontsize=11)
     y += 20
     page.insert_text((50, y), f"Total Price: **Rs {round(total_final_price):,}**", fontsize=11)
+    y += 20
+    page.insert_text((50, y), f"Payment Terms: **{payment_term}**", fontsize=11)
+    y += 20
+    page.insert_text((50, y), f"Payment Months: **{', '.join(payment_months)}**", fontsize=11)
     y += 40
 
     clauses = [
@@ -327,3 +331,4 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
+
