@@ -177,6 +177,16 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         y = 50
 
     page.insert_text((50, y), "School Partnership Agreement", fontsize=16)
+    y += 30
+    detailed_intro = f"This School partnership Agreement is entered on this {today} sets the terms and understanding between Ivy Minds Learning Solutions Private Ltd., through their proprietary brand “BeyondSkool” having their registered office at No 927, Summit Business Bay, Andheri East, CTC No 266 and 166 to 172 of Village Gundavali, Mumbai, Maharashtra 400093 referred to as the Party of the First Part and {school_name} hereinafter referred to as the Party of the Second part."
+    rect = fitz.Rect(50, y, 550, y + 100)
+    page.insert_textbox(rect, detailed_intro, fontsize=11, align=0)
+    y += 100
+    purpose = f"Purpose
+This School Partnership Agreement shall list the detailed working relationship between BeyondSkool and {school_name} setting the outline and all terms and conditions."
+    rect = fitz.Rect(50, y, 550, y + 60)
+    page.insert_textbox(rect, purpose, fontsize=11, align=0)
+    y += 70
     y += 40
     page.insert_text((50, y), f"This agreement is made on {today} between:", fontsize=12)
     y += 20
@@ -188,27 +198,55 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     page.insert_text((50, y), "Program Details:", fontsize=14)
     y += 30
     for block in program_blocks:
+        prog_detail_text = f"{block['Program']}
+Beyondskool Responsibility
+1. Deliver the chosen program through trained teachers in the school
+2. Conduct one session per week per class
+3. Provide teachers: {block['Full-Time Teachers']} full-time and {block['Variable Teacher Days']} variable teacher days/week (approx.)
+4. Provide all necessary teaching and learning materials
+5. Provide LMS access for teachers and students
+6. Conduct regular assessments and share digital reports
+7. Support Parent-Teacher Meetings and Orientations
+8. Conduct student showcase events as scheduled
+9. Assign a program manager
+10. Share bi-monthly progress reports.
+
+School Responsibility
+1. Share time-table for program sessions
+2. Provide student data for LMS setup
+3. Ensure classrooms have projector/digital access
+4. Allow BeyondSkool teacher for PTMs
+5. Assign a school coordinator
+6. Provide slots for quarterly review with BeyondSkool
+7. Provide dates for showcases and extra class slots if needed
+8. Share grade-wise book quantity (billing based on this)
+9. Provide contacts for accounts/finance matters"
+        rect = fitz.Rect(50, y, 550, y + 300)
+        page.insert_textbox(rect, prog_detail_text, fontsize=10, align=0)
+        y += 310
+    y += 30
+    for block in program_blocks:
         page.insert_text((60, y), f"- {block['Program']} Program: {block['Students']} Students at Rs.{block['Price per Student']}/Student", fontsize=11)
         y += 20
     page.insert_text((50, y), f"Total Students: {total_students}", fontsize=11)
     y += 20
     page.insert_text((50, y), f"Total Price: **Rs {round(total_final_price):,}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Payment Terms: **{payment_term}**", fontsize=11)
+    page.insert_text((50, y), f"🔸 **Payment Terms:** {payment_term}", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Payment Months: **{', '.join(payment_months)}**", fontsize=11)
+    page.insert_text((50, y), f"🔸 **Payment Months:** {', '.join(payment_months)}", fontsize=11)
     y += 40
 
     clauses = [
-        "1. Scope: BeyondSkool will deliver the selected programs at School premises through qualified faculty.",
-        "2. Academic Year: This Agreement is valid for the academic session 2025-26 unless extended by mutual consent.",
-        "3. Student Material: BeyondSkool will provide kits, books, and other required material as applicable.",
-        "4. Payment Terms: Payments are to be made against invoices as per mutually agreed schedules.",
-        "5. Taxes: All taxes as applicable are extra unless explicitly mentioned as inclusive.",
-        "6. Confidentiality: Both parties will maintain confidentiality of all shared proprietary information.",
-        "7. Indemnity: Each party indemnifies the other against claims arising out of negligence or misconduct.",
-        "8. Termination: Either party may terminate this Agreement with a 30-day written notice.",
-        "9. Jurisdiction: All disputes will be subject to the exclusive jurisdiction of Mumbai courts."
+        "🔸 **1. Scope:** BeyondSkool will deliver the selected programs at School premises through qualified faculty.",
+        "🔸 **2. Academic Year:** This Agreement is valid for the academic session 2025-26 unless extended by mutual consent.",
+        "🔸 **3. Student Material:** BeyondSkool will provide kits, books, and other required material as applicable.",
+        "🔸 **4. Payment Terms:** Payments are to be made against invoices as per mutually agreed schedules.",
+        "🔸 **5. Taxes:** All taxes as applicable are extra unless explicitly mentioned as inclusive.",
+        "🔸 **6. Confidentiality:** Both parties will maintain confidentiality of all shared proprietary information.",
+        "🔸 **7. Indemnity:** Each party indemnifies the other against claims arising out of negligence or misconduct.",
+        "🔸 **8. Termination:** Either party may terminate this Agreement with a 30-day written notice.",
+        "🔸 **9. Jurisdiction:** All disputes will be subject to the exclusive jurisdiction of Mumbai courts."
     ]
     for clause in clauses:
         rect = fitz.Rect(50, y, 550, y + 40)
@@ -249,7 +287,7 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
         })
 
     y += 40
-    page.insert_text((50, y), "Commercial Terms:", fontsize=14)
+    page.insert_text((50, y), "🔹 **Commercial Terms:**", fontsize=14)
     y += 30
     page.insert_text((50, y), f"Payment Terms: **{payment_term}**", fontsize=11)
     y += 20
@@ -295,7 +333,24 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     y += 20
     page.insert_text((50, y), f"Total GST on Services: **Rs {total_gst:,}**", fontsize=11)
     y += 20
-    page.insert_text((50, y), f"Total Payable (Books + Services + GST): **Rs {round(total_payable):,}**", fontsize=11)
+    page.insert_text((50, y), f"🔸 **Total Payable (Books + Services + GST): Rs {round(total_payable):,}**", fontsize=11)
+
+    # Add a page break before signatures
+    page = doc.new_page()
+    y = 50
+    page.insert_text((220, y), "🔏 Signatures", fontsize=14)
+    y += 40
+    page.insert_text((50, y), "For Ivy Minds Learning Solutions Pvt Ltd", fontsize=12)
+    page.insert_text((350, y), f"For {school_name}", fontsize=12)
+    y += 60
+    page.insert_text((50, y), "Name: ___________________", fontsize=10)
+    page.insert_text((350, y), "Name: ___________________", fontsize=10)
+    y += 20
+    page.insert_text((50, y), "Designation: _____________", fontsize=10)
+    page.insert_text((350, y), "Designation: _____________", fontsize=10)
+    y += 20
+    page.insert_text((50, y), "Date: ____________________", fontsize=10)
+    page.insert_text((350, y), "Date: ____________________", fontsize=10)
 
     doc.save(spa_output_path)
     doc.close()
@@ -331,4 +386,3 @@ BeyondSkool Partnerships Team
             st.success("🎉 SPA Created and Sent Successfully!")
         except Exception as e:
             st.error(f"Failed to send email: {e}")
-
