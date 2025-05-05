@@ -198,8 +198,9 @@ This School Partnership Agreement shall list the detailed working relationship b
     page.insert_text((50, y), "Program Details:", fontsize=14)
     y += 30
     for block in program_blocks:
-        prog_detail_text = f"{block['Program']}
-Beyondskool Responsibility
+        prog_detail_text = f"""📘 {block['Program']}
+
+🔹 **BeyondSkool Responsibility:**
 1. Deliver the chosen program through trained teachers in the school
 2. Conduct one session per week per class
 3. Provide teachers: {block['Full-Time Teachers']} full-time and {block['Variable Teacher Days']} variable teacher days/week (approx.)
@@ -211,7 +212,7 @@ Beyondskool Responsibility
 9. Assign a program manager
 10. Share bi-monthly progress reports.
 
-School Responsibility
+🔹 **School Responsibility:**
 1. Share time-table for program sessions
 2. Provide student data for LMS setup
 3. Ensure classrooms have projector/digital access
@@ -220,7 +221,7 @@ School Responsibility
 6. Provide slots for quarterly review with BeyondSkool
 7. Provide dates for showcases and extra class slots if needed
 8. Share grade-wise book quantity (billing based on this)
-9. Provide contacts for accounts/finance matters"
+9. Provide contacts for accounts/finance matters"""
         rect = fitz.Rect(50, y, 550, y + 300)
         page.insert_textbox(rect, prog_detail_text, fontsize=10, align=0)
         y += 310
