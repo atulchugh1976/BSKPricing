@@ -182,8 +182,8 @@ if st.session_state.get("confirm") and (gross_margin >= 30):
     rect = fitz.Rect(50, y, 550, y + 100)
     page.insert_textbox(rect, detailed_intro, fontsize=11, align=0)
     y += 100
-    purpose = f"Purpose
-This School Partnership Agreement shall list the detailed working relationship between BeyondSkool and {school_name} setting the outline and all terms and conditions."
+    purpose = f"""Purpose
+This School Partnership Agreement shall list the detailed working relationship between BeyondSkool and {school_name} setting the outline and all terms and conditions."""
     rect = fitz.Rect(50, y, 550, y + 60)
     page.insert_textbox(rect, purpose, fontsize=11, align=0)
     y += 70
